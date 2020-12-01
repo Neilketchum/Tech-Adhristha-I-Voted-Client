@@ -7,6 +7,7 @@ import {
   Route,
   
 } from "react-router-dom";
+import Dashboard from './Components/Dashboard';
 function App() {
 
   return (
@@ -15,6 +16,7 @@ function App() {
       <Switch>
         <Route exact path="/" children={<Home />} />
         <Route exact path="/login" children={<Login/> } />
+        <Route exact path="/dashboard" children={<Dashboard/>}/>
         </Switch>
     </Router>
   );

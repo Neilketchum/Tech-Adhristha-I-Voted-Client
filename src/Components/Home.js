@@ -1,13 +1,12 @@
 
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux"
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { register } from "../Actions/index"
 import "./Home.css"
 import {
-    Link,
+    Link,Redirect
 } from "react-router-dom";
 import { Input, Button } from '@material-ui/core';
 import axios from "axios"
@@ -15,7 +14,8 @@ export default function Home() {
     const [name, setname] = useState("")
     const [email, setemail] = useState("")
     const [password, setpassword] = useState("")
-    const dispatch = useDispatch()
+    const [login, setlogin] = useState(false)
+   
     const registerUser = async (e) => {
 
         e.preventDefault();
@@ -27,11 +27,17 @@ export default function Home() {
 
         axios.post('http://localhost:8080/api/user/register', user)
             .then(function (response) {
-                console.log(response);
+                if(response.status === 200){
+                    console.log("Sucess")
+                   setlogin(true)
+                }
             })
     }
     return (
         <div>
+            {
+              login?<Redirect to = {'/login'}/>  :
+            <div>
             <AppBar position="static">
                 <Toolbar className="home__appbar">
                     <Typography variant="h6" >
@@ -67,8 +73,8 @@ export default function Home() {
                 </form>
 
             </div>
-
-
+            </div>
+    }
 
         </div >
     )
