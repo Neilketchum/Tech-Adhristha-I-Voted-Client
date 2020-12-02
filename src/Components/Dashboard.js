@@ -14,6 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import Axios from 'axios';
+import MyPolls from './MyPolls';
 
 export default function Dashboard() {
     const auth = useSelector(state => state.auth)
@@ -21,23 +22,23 @@ export default function Dashboard() {
         setpollform(true)
     }
     const [pollform, setpollform] = useState(false)
-    const [title, settitle] = useState("")
-    const [pos1, setpos1] = useState("")
-    const [pos2, setpos2] = useState("")
-    const [pos3, setpos3] = useState("")
-    const [pos4, setpos4] = useState("")
-    const [can1pos1, setcan1pos1] = useState("")
-    const [can2pos1, setcan2pos1] = useState("")
-    const [can3pos1, setcan3pos1] = useState("")
-    const [can1pos2, setcan1pos2] = useState("")
-    const [can2pos2, setcan2pos2] = useState("")
-    const [can3pos2, setcan3pos2] = useState("")
-    const [can1pos3, setcan1pos3] = useState("")
-    const [can2pos3, setcan2pos3] = useState("")
-    const [can3pos3, setcan3pos3] = useState("")
-    const [can1pos4, setcan1pos4] = useState("")
-    const [can2pos4, setcan2pos4] = useState("")
-    const [can3pos4, setcan3pos4] = useState("")
+    const [title, settitle] = useState("Stdent-Elctions")
+    const [pos1, setpos1] = useState("pos1")
+    const [pos2, setpos2] = useState("pos2")
+    const [pos3, setpos3] = useState("pos3")
+    const [pos4, setpos4] = useState("pos4")
+    const [can1pos1, setcan1pos1] = useState("1")
+    const [can2pos1, setcan2pos1] = useState("2")
+    const [can3pos1, setcan3pos1] = useState("3")
+    const [can1pos2, setcan1pos2] = useState("1")
+    const [can2pos2, setcan2pos2] = useState("2")
+    const [can3pos2, setcan3pos2] = useState("3")
+    const [can1pos3, setcan1pos3] = useState("1")
+    const [can2pos3, setcan2pos3] = useState("2")
+    const [can3pos3, setcan3pos3] = useState("3")
+    const [can1pos4, setcan1pos4] = useState("1")
+    const [can2pos4, setcan2pos4] = useState("2")
+    const [can3pos4, setcan3pos4] = useState("3")
 
     const [voter, setvoter] = useState(0)
     const [inputFields, setInputFields] = useState([
@@ -58,7 +59,7 @@ export default function Dashboard() {
   }
 
   const handleAddFields = () => {
-    setInputFields([...inputFields, { id: uuidv4(),  firstName: '', lastName: '',year:'' }])
+    setInputFields([...inputFields, { id: uuidv4(),  name: '', email: '',year:'' }])
   }
 
   const handleRemoveFields = id => {
@@ -76,23 +77,32 @@ export default function Dashboard() {
           {
               name:pos1,
               candidates:[
-                  can1pos1,can2pos1,can3pos1
+                 { name:can1pos1},
+                 { name:can2pos1},
+                 { name:can3pos1},
+                 
               ]
           },
           {
               name:pos2,
               candidates:[
-                  can1pos2,can2pos2,can3pos3
+                { name:can1pos2},
+                { name:can2pos2},
+                { name:can3pos2},
               ]
           },{
               name:pos3,
               candidates:[
-                  can1pos1,can2pos1,can3pos1
+                { name:can1pos3},
+                { name:can2pos3},
+                { name:can3pos3},
               ]
           },{
               name:pos4,
               candidates:[
-                  can1pos4,can2pos4,can3pos4
+                { name:can1pos3},
+                 { name:can2pos3},
+                 { name:can3pos3},
               ]
           }
       ],
@@ -102,8 +112,13 @@ export default function Dashboard() {
   const res = await  Axios.post('http://localhost:8080/api/add_poll',body,{headers:{
       "auth-token":auth.authToken
   }})
-  console.log(res)
+  setpollform(false)
+//   fetchPolls()
 };
+const fetchPolls = async ()=>{
+    
+    
+}
     return (
         <div>
             {auth.authToken ? <div>
@@ -147,7 +162,7 @@ export default function Dashboard() {
                             {inputFields.map(inputField => (
                                 <div key={inputField.id}>
                                     <TextField
-                                        name="firstName"
+                                        name="email"
                                         label="Email"
                                         variant="filled"
                                         placeholder = "Email"
@@ -155,7 +170,7 @@ export default function Dashboard() {
                                         onChange={event => handleChangeInput(inputField.id, event)}
                                     />
                                     <TextField
-                                        name="lastName"
+                                        name="name"
                                         label="Name"
                                         variant="filled"
                                         value={inputField.lastName}
@@ -190,8 +205,10 @@ export default function Dashboard() {
                         </div>}
 
                 </div>
-
-
+                <h1>My Votes</h1>
+                <div>
+                      {<MyPolls id = {auth.authToken}/> } 
+                </div>
 
             </div> :
                 <div>
