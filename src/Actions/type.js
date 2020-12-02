@@ -1,1 +1,2 @@
 export const REGISTER_ADMIN = "REGISTER_ADMIN"
+export const REGISTER_VOTER = "REGISTER_VOTER"

@@ -1,4 +1,4 @@
-import { REGISTER_ADMIN } from "./type"
+import { REGISTER_ADMIN ,REGISTER_VOTER} from "./type"
 import axios from "axios"
 export const setAdminAuth = (token) => {
     return async (dispatch) => {
@@ -9,5 +9,15 @@ export const setAdminAuth = (token) => {
             }}
         )
 
+    }
+}
+export const setVoterAuth = (token)=>{
+    return async (dispatch) => {
+        dispatch(
+            {type:REGISTER_VOTER,
+            payload:{
+                token:token
+            }}
+        )
     }
 }

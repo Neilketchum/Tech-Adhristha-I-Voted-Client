@@ -1,4 +1,4 @@
-import {REGISTER_ADMIN} from "../Actions/type"
+import {REGISTER_ADMIN,REGISTER_VOTER} from "../Actions/type"
 
 const initialState = {
     authToken:1,
@@ -14,6 +14,12 @@ export default function(state = initialState,action){
                 authToken:action.payload.token
             }
             return state
+            case REGISTER_VOTER:
+                state = {
+                    ...state,
+                    voterToken:action.payload.token
+                }
+                return state
         default:
             return {
                 ...state
